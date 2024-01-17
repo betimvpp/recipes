@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import { ThemeProvider } from '@/components/theme-provider'
+import { ModeToggle } from '@/components/toggle'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,7 +18,22 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <div className='max-w-7xl items-center flex flex-col m-auto'>
+            <div className='flex justify-between w-full p-6'>
+              <h1 className='text-5xl font-bold'>Recipes</h1>
+              <ModeToggle />
+            </div>
+            {children}
+          </div>
+        </ThemeProvider>
+      </body>
     </html>
   )
 }
